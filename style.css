@@ -821,3 +821,60 @@ footer {
     height: 100vh; /* Ocupa a altura total */
   }
 }
+@media (max-width: 768px) {
+  /* Altera a direção do cabeçalho para que os elementos fiquem um abaixo do outro */
+  .header-top {
+    flex-direction: column;
+    align-items: center; /* Centraliza todos os itens */
+    padding: 10px;
+  }
+
+  /* Ajusta o espaçamento dos títulos */
+  .header-title-container {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  /* Faz a barra de pesquisa ocupar a largura total e centraliza */
+  .search-bar {
+    width: 90%;
+    margin: 10px 0;
+    justify-content: center;
+  }
+
+  /* Centraliza a barra de navegação */
+  .main-nav ul {
+    justify-content: center;
+    flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha */
+  }
+}
+@media (max-width: 768px) {
+  /* ... (código anterior para o cabeçalho) ... */
+
+  /* Estilos do carrinho lateral */
+  .cart-sidebar {
+    width: 100%; /* Ocupa a largura total da tela */
+    height: 100%; /* Ocupa a altura total da tela */
+    top: 0;
+    right: 0;
+    transform: translateX(0); /* Garante que ele fique visível */
+    padding: 20px;
+  }
+
+  /* Aumenta o tamanho do botão para fechar o carrinho */
+  .close-cart-btn {
+    font-size: 2.5em; /* Aumenta o tamanho do 'X' */
+    top: 5px;
+    right: 15px;
+  }
+
+  /* Ajusta o formulário de pedido para celular */
+  .order-form-container {
+    padding: 10px;
+  }
+
+  .order-form-container input {
+    width: 95%; /* Garante que os campos de texto ocupem a largura total */
+    padding: 12px;
+  }
+}
