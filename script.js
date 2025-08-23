@@ -170,32 +170,6 @@ let parts = JSON.parse(localStorage.getItem('pecas')) || [
         condition: "recondicionada"
     },
     {
-        photo: "https://cdn.awsli.com.br/200x200/1376/1376230/produto/347820993/whatsapp-image-2025-04-15-at-09-42-15--1--nao83rrrwo.jpeg",
-        name: "Encosto banco motorista baixo recondicionado",
-        description: "Encosto banco motorista baixo Urbano e Rodoviário recondicionado.",
-        code: "60934",
-        id: 14,
-        year: "2013 - 2017",
-        busModel: "Todos",
-        bodyModel: "Neobus mega",
-        category: "Recon. Lataria",
-        manufacturer: "Todos",
-        condition: "recondicionada"
-    },
-    {
-        photo: "https://http2.mlstatic.com/D_839921-CBT90440509335_082025-C.jpg",
-        name: "assento banco motorista recondicionado",
-        description: "assento banco motorista Urbano e Rodoviário recondicionado.",
-        code: "60934",
-        id: 15,
-        year: "2013 - 2017",
-        busModel: "Todos",
-        bodyModel: "Neobus mega",
-        category: "Recon. Lataria",
-        manufacturer: "Todos",
-        condition: "recondicionada"
-    },
-    {
         photo: "https://msam.fbitsstatic.net/img/p/masterflex-se007-servo-embreagem-vw-onibus-15190eod-motor-dt-vw-onibus-17230-17280-motor-tr-mo-175771/378790.jpg?w=420&h=420&v=202506171623",
         name: "Servo Embreagem Recondicionado 17230 EOD MWM",
         description: "Servo embreagem recondicionado para motor MWM 17230 EOD.",
