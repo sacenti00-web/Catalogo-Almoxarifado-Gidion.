@@ -1,5 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
 // COLE A SUA CONFIGURAÇÃO DO FIREBASE AQUI
 const firebaseConfig = {
@@ -18,6 +18,7 @@ const db = getFirestore(app);
 // ------------------- VARIÁVEIS GLOBAIS -------------------
 let cart = {};
 let isLoggedIn = false;
+let allPartsData = []; // Armazenar todas as peças para acesso rápido
 const catalogContainer = document.getElementById('catalog-container');
 const addPartFormContainer = document.querySelector('.add-part-form-container');
 const loginFormContainer = document.querySelector('.login-form-container');
@@ -80,65 +81,111 @@ function renderCartItems() {
     updateCartCount();
 }
 
-function clearCatalog() {
-    catalogContainer.innerHTML = '';
-}
-
+// ------------------- LÓGICA DO CATÁLOGO E TELAS -------------------
 function showCatalog() {
-    clearCatalog();
+    catalogContainer.innerHTML = '';
     catalogContainer.style.display = 'flex';
+    catalogContainer.style.flexDirection = 'row';
     addPartFormContainer.style.display = 'none';
     loginFormContainer.style.display = 'none';
-    loadPartsFromFirebase();
+    
+    // Se já temos os dados, apenas renderizamos, caso contrário, buscamos
+    if (allPartsData.length > 0) {
+        renderParts(allPartsData);
+    } else {
+        loadPartsFromFirebase();
+    }
 }
 
-// ------------------- LÓGICA DO CATÁLOGO E CARREGAMENTO DE DADOS -------------------
+function renderParts(parts) {
+    catalogContainer.innerHTML = '';
+    if (parts.length === 0) {
+        catalogContainer.innerHTML = '<p class="no-parts-message">Nenhuma peça encontrada.</p>';
+        return;
+    }
+    parts.forEach(part => createPartCard(part));
+}
+
 function createPartCard(part) {
     const card = document.createElement('div');
-    card.className = 'part-card';
+    card.className = 'part-card clickable-part';
+    card.dataset.code = part.code;
     card.innerHTML = `
         <div class="part-image-container">
             <img src="${part.photo || 'https://via.placeholder.com/200'}" alt="${part.name}">
         </div>
-        <div class="part-info">
+        <div class="part-info-simple">
             <h2 class="part-name">${part.name}</h2>
-            <p><strong>Cód:</strong> ${part.code}</p>
-            <p><strong>Marca:</strong> ${part.manufacturer}</p>
-            <p><strong>Carroceria:</strong> ${part.bodyModel}</p>
-            <button class="add-to-cart-btn" 
-                    data-name="${part.name}" 
-                    data-code="${part.code}" 
-                    data-manufacturer="${part.manufacturer}">Adicionar ao Pedido</button>
         </div>
     `;
     catalogContainer.appendChild(card);
 }
 
+function showPartDetails(part) {
+    catalogContainer.innerHTML = '';
+    catalogContainer.style.flexDirection = 'column'; // Mudar para layout de coluna
+    
+    const detailsHtml = `
+        <button id="back-to-catalog" class="back-btn"><i class="fas fa-arrow-left"></i> Voltar</button>
+        <div class="part-details-card">
+            <div class="part-details-image">
+                <img src="${part.photo || 'https://via.placeholder.com/400'}" alt="${part.name}">
+            </div>
+            <div class="part-details-info">
+                <h1 class="part-details-name">${part.name}</h1>
+                <p><strong>Código:</strong> ${part.code}</p>
+                <p><strong>Marca:</strong> ${part.manufacturer}</p>
+                <p><strong>Descrição:</strong> ${part.description || 'N/A'}</p>
+                <p><strong>Ano:</strong> ${part.year || 'N/A'}</p>
+                <p><strong>Modelo do Ônibus:</strong> ${part.busModel || 'N/A'}</p>
+                <p><strong>Modelo da Carroceria:</strong> ${part.bodyModel || 'N/A'}</p>
+                <p><strong>Categoria:</strong> ${part.category}</p>
+                <p><strong>Condição:</strong> ${part.condition}</p>
+                <button class="add-to-cart-btn-details" 
+                        data-name="${part.name}" 
+                        data-code="${part.code}">Adicionar ao Pedido</button>
+            </div>
+        </div>
+    `;
+    catalogContainer.innerHTML = detailsHtml;
+
+    document.getElementById('back-to-catalog').addEventListener('click', () => {
+        showCatalog();
+    });
+}
+
 async function loadPartsFromFirebase(filterType = null, filterValue = null) {
     catalogContainer.innerHTML = '<h2>Carregando peças...</h2>';
     let partsQuery = collection(db, "pecas");
-
-    if (filterType === 'manufacturer') {
-        partsQuery = query(partsQuery, where("manufacturer", "==", filterValue));
-    }
-    if (filterType === 'category') {
-        partsQuery = query(partsQuery, where("category", "==", filterValue));
-    }
-    if (filterType === 'condition') {
-        partsQuery = query(partsQuery, where("condition", "==", filterValue));
-    }
     
     try {
         const querySnapshot = await getDocs(partsQuery);
-        catalogContainer.innerHTML = '';
-        if (querySnapshot.empty) {
-            catalogContainer.innerHTML = '<p class="no-parts-message">Nenhuma peça encontrada.</p>';
-            return;
-        }
+        allPartsData = []; // Limpa o array de dados para evitar duplicação
         querySnapshot.forEach((doc) => {
-            const part = doc.data();
-            createPartCard(part);
+            allPartsData.push({ id: doc.id, ...doc.data() });
         });
+        
+        // Aplica o filtro após carregar todos os dados
+        let filteredParts = allPartsData;
+        if (filterType && filterValue) {
+            filteredParts = allPartsData.filter(part => {
+                if (filterType === 'manufacturer') {
+                    return part.manufacturer === filterValue;
+                }
+                if (filterType === 'category') {
+                    return part.category === filterValue;
+                }
+                if (filterType === 'condition') {
+                    // A categoria de peças recondicionadas é 'Recondicionada Mecânica' etc., então filtramos por 'Recondicionada'
+                    if (filterValue === 'Recondicionada') {
+                        return part.condition === 'Recondicionada';
+                    }
+                }
+                return true;
+            });
+        }
+        
+        renderParts(filteredParts);
     } catch (e) {
         console.error("Erro ao carregar peças: ", e);
         catalogContainer.innerHTML = '<p class="no-parts-message">Erro ao carregar as peças. Tente novamente mais tarde.</p>';
@@ -150,6 +197,9 @@ async function savePartToFirebase(partData) {
     try {
         await addDoc(collection(db, "pecas"), partData);
         showNotification("Peça cadastrada com sucesso!");
+        // Após o cadastro, recarregamos a lista de peças
+        allPartsData = []; // Força o recarregamento
+        loadPartsFromFirebase();
     } catch (e) {
         console.error("Erro ao adicionar documento: ", e);
         showNotification("Erro ao cadastrar peça.", true);
@@ -192,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.preventDefault();
                 const parentDropdown = event.target.closest('.dropdown-menu');
                 const filterType = parentDropdown.dataset.type;
-                let filterValue;
+                let filterValue = null;
                 
                 if (filterType === 'manufacturer') {
                     filterValue = event.target.dataset.manufacturer;
@@ -200,12 +250,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     filterValue = event.target.dataset.category;
                 } else if (filterType === 'condition') {
                     filterValue = event.target.dataset.condition;
-                } else {
-                    filterValue = event.target.textContent;
                 }
                 
-                showCatalog();
-                loadPartsFromFirebase(filterType, filterValue);
+                if (allPartsData.length === 0) {
+                     // Se os dados ainda não foram carregados, busca e filtra
+                    loadPartsFromFirebase(filterType, filterValue);
+                } else {
+                    // Se os dados já estão em memória, apenas filtra
+                    let filteredParts = allPartsData;
+                    if (filterType && filterValue) {
+                        filteredParts = allPartsData.filter(part => {
+                            if (filterType === 'manufacturer') {
+                                return part.manufacturer === filterValue;
+                            }
+                            if (filterType === 'category') {
+                                return part.category === filterValue;
+                            }
+                            if (filterType === 'condition') {
+                                return part.condition && part.condition.includes(filterValue);
+                            }
+                            return true;
+                        });
+                    }
+                    renderParts(filteredParts);
+                }
             }
         });
     }
@@ -218,9 +286,22 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('close-cart-btn').addEventListener('click', () => {
         cartSidebar.classList.remove('open');
     });
-
+    
+    // Lógica de delegação de eventos para as peças e o botão de adicionar ao carrinho
     catalogContainer.addEventListener('click', (event) => {
-        if (event.target.classList.contains('add-to-cart-btn')) {
+        // Lógica para clicar em uma peça
+        const clickedPart = event.target.closest('.clickable-part');
+        if (clickedPart) {
+            const code = clickedPart.dataset.code;
+            const part = allPartsData.find(p => p.code === code);
+            if (part) {
+                showPartDetails(part);
+            }
+            return; // Impede que o evento de adicionar ao carrinho seja ativado
+        }
+
+        // Lógica para clicar no botão "Adicionar ao Pedido"
+        if (event.target.classList.contains('add-to-cart-btn-details')) {
             const name = event.target.dataset.name;
             const code = event.target.dataset.code;
 
@@ -253,67 +334,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     orderForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
+        event.preventDefault();
 
-    if (Object.keys(cart).length === 0) {
-        showNotification("O seu pedido está vazio. Adicione itens antes de enviar.", true);
-        return;
-    }
-
-    const urlAppsScript = 'https://script.google.com/macros/s/AKfycbzErMPtJ9PvUaLhCh6z57Q86Zfs7DUfdn6I6q2EXQ5zna9fN3oCfK3oxA6R6FrKDWIJ/exec';
-    
-    // Constrói os dados do pedido no formato que o Apps Script espera
-    const formData = new FormData();
-    formData.append('carNumber', document.getElementById('car-number').value);
-    formData.append('osNumber', document.getElementById('os-number').value);
-    formData.append('userMatricula', document.getElementById('user-matricula').value);
-    formData.append('pedido', JSON.stringify(Object.values(cart))); // Converte o carrinho para uma string JSON
-    
-    try {
-        // Envia o pedido para o Apps Script
-        const response = await fetch(urlAppsScript, {
-            method: 'POST',
-            body: formData,
-        });
-
-        const result = await response.json();
-
-        if (result.status === 'success') {
-            showNotification("Pedido enviado com sucesso!");
-            
-            // Salva o pedido no Firestore para manter um registro local
-            const orderData = {
-                carro: document.getElementById('car-number').value,
-                os: document.getElementById('os-number').value,
-                matricula: document.getElementById('user-matricula').value,
-                itens: Object.values(cart),
-                timestamp: new Date()
-            };
-            await addDoc(collection(db, "pedidos"), orderData);
-
-            cart = {};
-            renderCartItems();
-            orderForm.reset();
-            cartSidebar.classList.remove('open');
-        } else {
-            throw new Error(result.message || 'Erro desconhecido');
+        if (Object.keys(cart).length === 0) {
+            showNotification("O seu pedido está vazio. Adicione itens antes de enviar.", true);
+            return;
         }
-    } catch (e) {
-        console.error("Erro ao enviar pedido para o Apps Script: ", e);
-        showNotification(`Erro ao enviar pedido: ${e.message}`, False
-        );
-    }
 
+        const urlAppsScript = 'https://script.google.com/macros/s/AKfycbzErMPtJ9PvUaLhCh6z57Q86Zfs7DUfdn6I6q2EXQ5zna9fN3oCfK3oxA6R6FrKDWIJ/exec';
+        
+        const formData = new FormData();
+        formData.append('carNumber', document.getElementById('car-number').value);
+        formData.append('osNumber', document.getElementById('os-number').value);
+        formData.append('userMatricula', document.getElementById('user-matricula').value);
+        formData.append('pedido', JSON.stringify(Object.values(cart)));
+        
         try {
-            await addDoc(collection(db, "pedidos"), orderData);
-            showNotification("Pedido enviado com sucesso!");
-            cart = {};
-            renderCartItems();
-            orderForm.reset();
-            cartSidebar.classList.remove('open');
+            const response = await fetch(urlAppsScript, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                showNotification("Pedido enviado com sucesso!");
+                
+                const orderData = {
+                    carro: document.getElementById('car-number').value,
+                    os: document.getElementById('os-number').value,
+                    matricula: document.getElementById('user-matricula').value,
+                    itens: Object.values(cart),
+                    timestamp: new Date()
+                };
+                await addDoc(collection(db, "pedidos"), orderData);
+
+                cart = {};
+                renderCartItems();
+                orderForm.reset();
+                cartSidebar.classList.remove('open');
+            } else {
+                throw new Error(result.message || 'Erro desconhecido');
+            }
         } catch (e) {
-            console.error("Erro ao enviar pedido: ", e);
-            showNotification("Erro ao enviar pedido.", False);
+            console.error("Erro ao enviar pedido para o Apps Script: ", e);
+            showNotification(`Erro ao enviar pedido: ${e.message}`, true);
         }
     });
 
@@ -352,25 +417,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.getElementById('search-button');
 
     function filterParts(searchText) {
-        const partCards = document.querySelectorAll('.part-card');
         const searchTerm = searchText.toLowerCase().trim();
-        let found = false;
-
-        partCards.forEach(card => {
-            const name = card.querySelector('.part-name').textContent.toLowerCase();
-            const code = card.querySelector('p:nth-of-type(1)').textContent.toLowerCase();
-
-            if (name.includes(searchTerm) || code.includes(searchTerm)) {
-                card.style.display = 'block';
-                found = true;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-
-        if (!found) {
-            catalogContainer.innerHTML = '<p class="no-parts-message">Nenhuma peça encontrada com essa busca.</p>';
-        }
+        const filtered = allPartsData.filter(part => 
+            part.name.toLowerCase().includes(searchTerm) || 
+            (part.code && part.code.toLowerCase().includes(searchTerm))
+        );
+        renderParts(filtered);
     }
 
     if (searchButton && searchInput) {
