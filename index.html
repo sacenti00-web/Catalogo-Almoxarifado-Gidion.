@@ -76,13 +76,13 @@
         <div class="order-form-container">
             <form id="order-form">
                 <label for="car-number">Número do Carro:</label>
-                <input type="text" id="car-number" placeholder="Ex: 12401" required>
+                <input type="text" id="car-number" placeholder="Ex: 12401" required autocomplete="off">
 
                 <label for="os-number">O.S. (Ordem de Serviço):</label>
-                <input type="text" id="os-number" placeholder="Ex: 239100" required>
+                <input type="text" id="os-number" placeholder="Ex: 239100" required autocomplete="off">
 
                 <label for="user-matricula">Matrícula:</label>
-                <input type="text" id="user-matricula" placeholder="Sua matrícula" required>
+                <input type="text" id="user-matricula" placeholder="Sua matrícula" required autocomplete="off">
                 
                 <button type="submit" id="submit-order-btn">Pedir</button>
             </form>
@@ -94,10 +94,10 @@
         <form id="login-form">
             <p>Por favor, insira sua matrícula e senha para continuar.</p>
             <label for="login-matricula">Matrícula:</label>
-            <input type="text" id="login-matricula" required>
+            <input type="text" id="login-matricula" required autocomplete="off">
             <br>
             <label for="login-senha">Senha:</label>
-            <input type="password" id="login-senha" required>
+            <input type="password" id="login-senha" required autocomplete="off">
             <br>
             <button type="submit">Entrar</button>
             <p id="login-error-message" class="error-message" style="display:none;"></p>
@@ -107,25 +107,25 @@
         <h2>Adicionar Nova Peça</h2>
         <form id="add-part-form">
             <label for="part-name">Nome da Peça:</label>
-            <input type="text" id="part-name" required>
+            <input type="text" id="part-name" required autocomplete="off">
             <br>
             <label for="part-code">Código:</label>
-            <input type="text" id="part-code" required>
+            <input type="text" id="part-code" required autocomplete="off">
             <br>
             <label for="part-photo">URL da Foto:</label>
-            <input type="url" id="part-photo" required>
+            <input type="url" id="part-photo" required autocomplete="off">
             <br>
             <label for="part-description">Descrição:</label>
             <textarea id="part-description"></textarea>
             <br>
             <label for="part-year">Ano:</label>
-            <input type="text" id="part-year">
+            <input type="text" id="part-year" autocomplete="off">
             <br>
             <label for="part-bus-model">Modelo do Ônibus:</label>
-            <input type="text" id="part-bus-model">
+            <input type="text" id="part-bus-model" autocomplete="off">
             <br>
             <label for="part-body-model">Modelo da Carroceria:</label>
-            <input type="text" id="part-body-model">
+            <input type="text" id="part-body-model" autocomplete="off">
             <br>
             <label for="part-category">Categoria:</label>
             <select id="part-category">
@@ -142,13 +142,19 @@
                 <option value="Recon. Elétrica">Recon. Elétrica</option>
             </select>
             <br>
-            <label for="part-manufacturer">Marca:</label>
-            <select id="part-manufacturer">
-                <option value="Volkswagen">Volkswagen</option>
-                <option value="Mercedes-Bens">Mercedes-Bens</option>
-                <option value="Volvo">Volvo</option>
+                 <label for="part-manufacturer">Marca:</label>
+                 <select id="part-manufacturer" autocomplete="off">
+                 <option value="Volkswagen">Volkswagen</option>
+                 <option value="Mercedes-Bens">Mercedes-Bens</option>
+                 <option value="Volvo">Volvo</option>
+                 <option value="Outra">Outra</option>
             </select>
             <br>
+            <div id="other-manufacturer-container" style="display: none;">
+                <label for="other-manufacturer">Especifique a Marca:</label>
+                <input type="text" id="other-manufacturer" autocomplete="off">
+            </div>
+
             <div id="other-manufacturer-container" style="display: none;">
                 <label for="other-manufacturer">Especifique a Marca:</label>
                 <input type="text" id="other-manufacturer">
