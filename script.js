@@ -300,7 +300,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } catch (e) {
         console.error("Erro ao enviar pedido para o Apps Script: ", e);
-        showNotification(`Erro ao enviar pedido: ${e.message}`, true);
+        showNotification(`Erro ao enviar pedido: ${e.message}`, False
+        );
     }
 
         try {
@@ -312,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartSidebar.classList.remove('open');
         } catch (e) {
             console.error("Erro ao enviar pedido: ", e);
-            showNotification("Erro ao enviar pedido.", true);
+            showNotification("Erro ao enviar pedido.", False);
         }
     });
 
