@@ -32,31 +32,30 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle">Carrocerias</a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" data-manufacturer="volkswagen">Volkswagen</a></li>
-                    <li><a href="#" data-manufacturer="mercedes-bens">Mercedes-Bens</a></li>
-                    <li><a href="#" data-manufacturer="volvo">Volvo</a></li>
+                    <li><a href="#" data-manufacturer="Volkswagen">Volkswagen</a></li>
+                    <li><a href="#" data-manufacturer="Mercedes-Benz">Mercedes-Benz</a></li>
+                    <li><a href="#" data-manufacturer="Volvo">Volvo</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle">Área</a>
-                <ul class="dropdown-menu" data-condition="Nova">
-                    <li><a href="#">Mecânica</a></li>
-                    <li><a href="#">Elétrica</a></li>
-                    <li><a href="#">Lataria</a></li>
-                    <li><a href="#">Parafusos</a></li>
-                    <li><a href="#">Pintura</a></li>
-                    <li><a href="#">Borracharia</a></li>
-                    <li><a href="#">Lubrificação</a></li>
-                    <li><a href="#">Limpeza</a></li>
-                    <li><a href="#">Predial</a></li>
+                <ul class="dropdown-menu" data-type="category">
+                    <li><a href="#" data-category="Mecânica">Mecânica</a></li>
+                    <li><a href="#" data-category="Elétrica">Elétrica</a></li>
+                    <li><a href="#" data-category="Lataria">Lataria</a></li>
+                    <li><a href="#" data-category="Parafusos">Parafusos</a></li>
+                    <li><a href="#" data-category="Pintura">Pintura</a></li>
+                    <li><a href="#" data-category="Borracharia">Borracharia</a></li>
+                    <li><a href="#" data-category="Limpeza">Limpeza</a></li>
+                    <li><a href="#" data-category="Predial">Predial</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle">Recondicionadas</a>
-                <ul class="dropdown-menu" data-condition="Recondicionada">
-                    <li><a href="#">Recon. Mecânica</a></li>
-                    <li><a href="#">Recon. Lataria</a></li>
-                    <li><a href="#">Recon. Elétrica</a></li>
+                <ul class="dropdown-menu" data-type="condition">
+                    <li><a href="#" data-condition="Recondicionada Mecânica">Mecânica</a></li>
+                    <li><a href="#" data-condition="Recondicionada Lataria">Lataria</a></li>
+                    <li><a href="#" data-condition="Recondicionada Elétrica">Elétrica</a></li>
                 </ul>
             </li>
             <li><a href="#" id="add-part-link">Cadastrar Peça</a></li>
@@ -64,7 +63,7 @@
     </nav>
 
     <main class="catalog-container" id="catalog-container">
-        </main>
+    </main>
 
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
@@ -72,18 +71,15 @@
             <button class="close-cart-btn" id="close-cart-btn">&times;</button>
         </div>
         <ul id="cart-items" class="cart-items-list">
-            </ul>
+        </ul>
         <div class="order-form-container">
             <form id="order-form">
                 <label for="car-number">Número do Carro:</label>
                 <input type="text" id="car-number" placeholder="Ex: 12401" required autocomplete="off">
-
                 <label for="os-number">O.S. (Ordem de Serviço):</label>
                 <input type="text" id="os-number" placeholder="Ex: 239100" required autocomplete="off">
-
                 <label for="user-matricula">Matrícula:</label>
                 <input type="text" id="user-matricula" placeholder="Sua matrícula" required autocomplete="off">
-                
                 <button type="submit" id="submit-order-btn">Pedir</button>
             </form>
         </div>
@@ -96,8 +92,8 @@
             <label for="login-matricula">Matrícula:</label>
             <input type="text" id="login-matricula" required autocomplete="off">
             <br>
-            <label for="login-senha">Senha:</label>
-            <input type="password" id="login-senha" required autocomplete="off">
+            <label for="login-password">Senha:</label>
+            <input type="password" id="login-password" required autocomplete="off">
             <br>
             <button type="submit">Entrar</button>
             <p id="login-error-message" class="error-message" style="display:none;"></p>
@@ -137,27 +133,22 @@
                 <option value="Borracharia">Borracharia</option>
                 <option value="Limpeza">Limpeza</option>
                 <option value="Predial">Predial</option>
-                <option value="Recon. Mecânica">Recon. Mecânica</option>
-                <option value="Recon. Lataria">Recon. Lataria</option>
-                <option value="Recon. Elétrica">Recon. Elétrica</option>
+                <option value="Recondicionada Mecânica">Recon. Mecânica</option>
+                <option value="Recondicionada Lataria">Recon. Lataria</option>
+                <option value="Recondicionada Elétrica">Recon. Elétrica</option>
             </select>
             <br>
-                 <label for="part-manufacturer">Marca:</label>
-                 <select id="part-manufacturer" autocomplete="off">
-                 <option value="Volkswagen">Volkswagen</option>
-                 <option value="Mercedes-Bens">Mercedes-Bens</option>
-                 <option value="Volvo">Volvo</option>
-                 <option value="Outra">Outra</option>
+            <label for="part-manufacturer">Marca:</label>
+            <select id="part-manufacturer" autocomplete="off">
+                <option value="Volkswagen">Volkswagen</option>
+                <option value="Mercedes-Benz">Mercedes-Benz</option>
+                <option value="Volvo">Volvo</option>
+                <option value="Outra">Outra</option>
             </select>
             <br>
             <div id="other-manufacturer-container" style="display: none;">
                 <label for="other-manufacturer">Especifique a Marca:</label>
                 <input type="text" id="other-manufacturer" autocomplete="off">
-            </div>
-
-            <div id="other-manufacturer-container" style="display: none;">
-                <label for="other-manufacturer">Especifique a Marca:</label>
-                <input type="text" id="other-manufacturer">
             </div>
             <br>
             <label for="part-condition">Condição:</label>
@@ -171,8 +162,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Gidion. Transportando valores humanos.
-        Impulsionando nossa cidade.</p>
+        <p>&copy; 2025 Gidion. Transportando valores humanos. Impulsionando nossa cidade.</p>
     </footer>
     <script src="script.js" type="module"></script>
 </body>

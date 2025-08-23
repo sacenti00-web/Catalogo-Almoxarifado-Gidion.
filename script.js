@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
 // COLE A SUA CONFIGURAÇÃO DO FIREBASE AQUI
 const firebaseConfig = {
@@ -17,6 +17,7 @@ const db = getFirestore(app);
 
 // ------------------- VARIÁVEIS GLOBAIS -------------------
 let cart = {};
+let isLoggedIn = false;
 const catalogContainer = document.getElementById('catalog-container');
 const addPartFormContainer = document.querySelector('.add-part-form-container');
 const loginFormContainer = document.querySelector('.login-form-container');
@@ -25,6 +26,11 @@ const cartItemsList = document.getElementById('cart-items');
 const cartCount = document.getElementById('cart-count');
 const notificationContainer = document.getElementById('notification-message');
 const orderForm = document.getElementById('order-form');
+
+// Variáveis do Login
+const addPartLink = document.getElementById('add-part-link');
+const loginForm = document.getElementById('login-form');
+const loginErrorMessage = document.getElementById('login-error-message');
 
 // ------------------- FUNÇÕES DE UTILIDADE -------------------
 function showNotification(message, isError = false) {
@@ -108,15 +114,18 @@ function createPartCard(part) {
     catalogContainer.appendChild(card);
 }
 
-async function loadPartsFromFirebase(manufacturer = null, category = null) {
+async function loadPartsFromFirebase(filterType = null, filterValue = null) {
     catalogContainer.innerHTML = '<h2>Carregando peças...</h2>';
     let partsQuery = collection(db, "pecas");
 
-    if (manufacturer) {
-        partsQuery = query(partsQuery, where("manufacturer", "==", manufacturer));
+    if (filterType === 'manufacturer') {
+        partsQuery = query(partsQuery, where("manufacturer", "==", filterValue));
     }
-    if (category) {
-        partsQuery = query(partsQuery, where("category", "==", category));
+    if (filterType === 'category') {
+        partsQuery = query(partsQuery, where("category", "==", filterValue));
+    }
+    if (filterType === 'condition') {
+        partsQuery = query(partsQuery, where("condition", "==", filterValue));
     }
     
     try {
@@ -162,15 +171,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const addPartLink = document.getElementById('add-part-link');
-    if (addPartLink) {
-        addPartLink.addEventListener('click', (event) => {
-            event.preventDefault();
+    addPartLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (isLoggedIn) {
             catalogContainer.style.display = 'none';
             loginFormContainer.style.display = 'none';
             addPartFormContainer.style.display = 'block';
-        });
-    }
+        } else {
+            catalogContainer.style.display = 'none';
+            addPartFormContainer.style.display = 'none';
+            loginFormContainer.style.display = 'block';
+        }
+    });
 
     // Lógica para o menu de filtros
     const mainNav = document.querySelector('.main-nav');
@@ -179,11 +191,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (event.target.tagName === 'A' && event.target.closest('.dropdown-menu')) {
                 event.preventDefault();
                 const parentDropdown = event.target.closest('.dropdown-menu');
-                const manufacturer = parentDropdown.dataset.manufacturer || null;
-                const category = event.target.textContent;
+                const filterType = parentDropdown.dataset.type;
+                let filterValue;
                 
-                showCatalog(); // Garante que a visualização do catálogo está ativa
-                loadPartsFromFirebase(manufacturer, category);
+                if (filterType === 'manufacturer') {
+                    filterValue = event.target.dataset.manufacturer;
+                } else if (filterType === 'category') {
+                    filterValue = event.target.dataset.category;
+                } else if (filterType === 'condition') {
+                    filterValue = event.target.dataset.condition;
+                } else {
+                    filterValue = event.target.textContent;
+                }
+                
+                showCatalog();
+                loadPartsFromFirebase(filterType, filterValue);
             }
         });
     }
@@ -344,6 +366,35 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Lógica de Login
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const matricula = document.getElementById('login-matricula').value;
+        const password = document.getElementById('login-password').value;
+        
+        try {
+            const userDocRef = doc(db, "users", matricula);
+            const userDocSnap = await getDoc(userDocRef);
+
+            if (userDocSnap.exists()) {
+                const userData = userDocSnap.data();
+                if (userData.password === password) {
+                    isLoggedIn = true;
+                    showNotification("Login bem-sucedido! Acesso de administrador liberado.");
+                    showCatalog();
+                    loginForm.reset();
+                } else {
+                    loginErrorMessage.textContent = "Matrícula ou senha incorreta.";
+                }
+            } else {
+                loginErrorMessage.textContent = "Matrícula ou senha incorreta.";
+            }
+        } catch (e) {
+            console.error("Erro ao fazer login: ", e);
+            loginErrorMessage.textContent = "Ocorreu um erro. Tente novamente.";
+        }
+    });
 
     // Carrega o catálogo ao iniciar a página
     showCatalog();
