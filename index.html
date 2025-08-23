@@ -1,173 +1,173 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almoxarifado Gidion Transportes</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almoxarifado Gidion Transportes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div id="notification-message" class="notification-container"></div>
-    <header class="header-top">
-        <div class="Logo">
-            <img src="https://i.imgur.com/FNIr0jV.png" alt="Logo Gidion Transportes e Turismo">
-        </div>
-        <div class="header-title-container">
-            <h1 class="page-title">Gidion Transportes e Turismo</h1>
-            <p class="page-subtitle">Catalogo de Peças Do Almoxarifado</p>
-        </div>
-        <div class="search-bar">
-            <input type="text" id="search-input" placeholder="Buscar peça..." autocomplete="off">
-            <button type="submit" id="search-button"><i class="fas fa-search"></i></button>
-        </div>
-        <div class="cart-icon" id="cart-icon">
-            <i class="fas fa-shopping-cart"></i>
-            <span id="cart-count" class="cart-count">0</span>
-        </div>
-    </header>
-    <nav class="main-nav">
-        <ul>
-            <li><a href="#" id="parts-link">Peças</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle">Carrocerias</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#" data-manufacturer="volkswagen">Volkswagen</a></li>
-                    <li><a href="#" data-manufacturer="mercedes-bens">Mercedes-Bens</a></li>
-                    <li><a href="#" data-manufacturer="volvo">Volvo</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle">Área</a>
-                <ul class="dropdown-menu" data-condition="Nova">
-                    <li><a href="#">Mecânica</a></li>
-                    <li><a href="#">Elétrica</a></li>
-                    <li><a href="#">Lataria</a></li>
-                    <li><a href="#">Parafusos</a></li>
-                    <li><a href="#">Pintura</a></li>
-                    <li><a href="#">Borracharia</a></li>
-                    <li><a href="#">Lubrificação</a></li>
-                    <li><a href="#">Limpeza</a></li>
-                    <li><a href="#">Predial</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle">Recondicionadas</a>
-                <ul class="dropdown-menu" data-condition="Recondicionada">
-                    <li><a href="#">Recon. Mecânica</a></li>
-                    <li><a href="#">Recon. Lataria</a></li>
-                    <li><a href="#">Recon. Elétrica</a></li>
-                </ul>
-            </li>
-            <li><a href="#" id="add-part-link">Cadastrar Peça</a></li>
-        </ul>
-    </nav>
+    <div id="notification-message" class="notification-container"></div>
+    <header class="header-top">
+        <div class="Logo">
+            <img src="https://i.imgur.com/FNIr0jV.png" alt="Logo Gidion Transportes e Turismo">
+        </div>
+        <div class="header-title-container">
+            <h1 class="page-title">Gidion Transportes e Turismo</h1>
+            <p class="page-subtitle">Catalogo de Peças Do Almoxarifado</p>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Buscar peça...">
+            <button type="submit" id="search-button"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="cart-icon" id="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" class="cart-count">0</span>
+        </div>
+    </header>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#" id="parts-link">Peças</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">Carrocerias</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-manufacturer="volkswagen">Volkswagen</a></li>
+                    <li><a href="#" data-manufacturer="mercedes-bens">Mercedes-Bens</a></li>
+                    <li><a href="#" data-manufacturer="volvo">Volvo</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">Área</a>
+                <ul class="dropdown-menu" data-condition="Nova">
+                    <li><a href="#">Mecânica</a></li>
+                    <li><a href="#">Elétrica</a></li>
+                    <li><a href="#">Lataria</a></li>
+                    <li><a href="#">Parafusos</a></li>
+                    <li><a href="#">Pintura</a></li>
+                    <li><a href="#">Borracharia</a></li>
+                    <li><a href="#">Lubrificação</a></li>
+                    <li><a href="#">Limpeza</a></li>
+                    <li><a href="#">Predial</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle">Recondicionadas</a>
+                <ul class="dropdown-menu" data-condition="Recondicionada">
+                    <li><a href="#">Recon. Mecânica</a></li>
+                    <li><a href="#">Recon. Lataria</a></li>
+                    <li><a href="#">Recon. Elétrica</a></li>
+                </ul>
+            </li>
+            <li><a href="#" id="add-part-link">Cadastrar Peça</a></li>
+        </ul>
+    </nav>
 
-    <main class="catalog-container" id="catalog-container">
-        </main>
+    <main class="catalog-container" id="catalog-container">
+        </main>
 
-    <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h3>Seu Pedido</h3>
-            <button class="close-cart-btn" id="close-cart-btn">&times;</button>
-        </div>
-        <ul id="cart-items" class="cart-items-list">
-            </ul>
-        <div class="order-form-container">
-            <form id="order-form">
-                <label for="car-number">Número do Carro:</label>
-                <input type="text" id="car-number" placeholder="Ex: 12401" required autocomplete="off">
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Seu Pedido</h3>
+            <button class="close-cart-btn" id="close-cart-btn">&times;</button>
+        </div>
+        <ul id="cart-items" class="cart-items-list">
+            </ul>
+        <div class="order-form-container">
+            <form id="order-form">
+                <label for="car-number">Número do Carro:</label>
+                <input type="text" id="car-number" placeholder="Ex: 12401" required>
 
-                <label for="os-number">O.S. (Ordem de Serviço):</label>
-                <input type="text" id="os-number" placeholder="Ex: 239100" required autocomplete="off">
+                <label for="os-number">O.S. (Ordem de Serviço):</label>
+                <input type="text" id="os-number" placeholder="Ex: 239100" required>
 
-                <label for="user-matricula">Matrícula:</label>
-                <input type="text" id="user-matricula" placeholder="Sua matrícula" required autocomplete="off">
-                
-                <button type="submit" id="submit-order-btn">Pedir</button>
-            </form>
-        </div>
-    </div>
-    
-    <div class="login-form-container" style="display: none;">
-        <h2>Acesso Restrito</h2>
-        <form id="login-form">
-            <p>Por favor, insira sua matrícula e senha para continuar.</p>
-            <label for="login-matricula">Matrícula:</label>
-            <input type="text" id="login-matricula" required autocomplete="off">
-            <br>
-            <label for="login-senha">Senha:</label>
-            <input type="password" id="login-senha" required autocomplete="off">
-            <br>
-            <button type="submit">Entrar</button>
-            <p id="login-error-message" class="error-message" style="display:none;"></p>
-        </form>
-    </div>
-    <div class="add-part-form-container" style="display: none;">
-        <h2>Adicionar Nova Peça</h2>
-        <form id="add-part-form">
-            <label for="part-name">Nome da Peça:</label>
-            <input type="text" id="part-name" required autocomplete="off">
-            <br>
-            <label for="part-code">Código:</label>
-            <input type="text" id="part-code" required autocomplete="off">
-            <br>
-            <label for="part-photo">URL da Foto:</label>
-            <input type="url" id="part-photo" required autocomplete="off">
-            <br>
-            <label for="part-description">Descrição:</label>
-            <textarea id="part-description" autocomplete="off"></textarea>
-            <br>
-            <label for="part-year">Ano:</label>
-            <input type="text" id="part-year" autocomplete="off">
-            <br>
-            <label for="part-bus-model">Modelo do Ônibus:</label>
-            <input type="text" id="part-bus-model" autocomplete="off">
-            <br>
-            <label for="part-body-model">Modelo da Carroceria:</label>
-            <input type="text" id="part-body-model" autocomplete="off">
-            <br>
-            <label for="part-category">Categoria:</label>
-            <select id="part-category" autocomplete="off">
-                <option value="Mecânica">Mecânica</option>
-                <option value="Elétrica">Elétrica</option>
-                <option value="Lataria">Lataria</option>
-                <option value="Parafusos">Parafusos</option>
-                <option value="Pintura">Pintura</option>
-                <option value="Borracharia">Borracharia</option>
-                <option value="Limpeza">Limpeza</option>
-                <option value="Predial">Predial</option>
-                <option value="Recon. Mecânica">Recon. Mecânica</option>
-                <option value="Recon. Lataria">Recon. Lataria</option>
-                <option value="Recon. Elétrica">Recon. Elétrica</option>
-            </select>
-            <br>
-            <label for="part-manufacturer">Marca:</label>
-            <select id="part-manufacturer" autocomplete="off">
-                <option value="Volkswagen">Volkswagen</option>
-                <option value="Mercedes-Bens">Mercedes-Bens</option>
-                <option value="Volvo">Volvo</option>
-            </select>
-            <br>
-            <div id="other-manufacturer-container" style="display: none;">
-                <label for="other-manufacturer">Especifique a Marca:</label>
-                <input type="text" id="other-manufacturer" autocomplete="off">
-            </div>
-            <br>
-            <label for="part-condition">Condição:</label>
-            <select id="part-condition" autocomplete="off">
-                <option value="Nova">Nova</option>
-                <option value="Recondicionada">Recondicionada</option>
-            </select>
-            <br>
-            <button type="submit">Adicionar Peça</button>
-        </form>
-    </div>
+                <label for="user-matricula">Matrícula:</label>
+                <input type="text" id="user-matricula" placeholder="Sua matrícula" required>
+                
+                <button type="submit" id="submit-order-btn">Pedir</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="login-form-container" style="display: none;">
+        <h2>Acesso Restrito</h2>
+        <form id="login-form">
+            <p>Por favor, insira sua matrícula e senha para continuar.</p>
+            <label for="login-matricula">Matrícula:</label>
+            <input type="text" id="login-matricula" required>
+            <br>
+            <label for="login-senha">Senha:</label>
+            <input type="password" id="login-senha" required>
+            <br>
+            <button type="submit">Entrar</button>
+            <p id="login-error-message" class="error-message" style="display:none;"></p>
+        </form>
+    </div>
+    <div class="add-part-form-container" style="display: none;">
+        <h2>Adicionar Nova Peça</h2>
+        <form id="add-part-form">
+            <label for="part-name">Nome da Peça:</label>
+            <input type="text" id="part-name" required>
+            <br>
+            <label for="part-code">Código:</label>
+            <input type="text" id="part-code" required>
+            <br>
+            <label for="part-photo">URL da Foto:</label>
+            <input type="url" id="part-photo" required>
+            <br>
+            <label for="part-description">Descrição:</label>
+            <textarea id="part-description"></textarea>
+            <br>
+            <label for="part-year">Ano:</label>
+            <input type="text" id="part-year">
+            <br>
+            <label for="part-bus-model">Modelo do Ônibus:</label>
+            <input type="text" id="part-bus-model">
+            <br>
+            <label for="part-body-model">Modelo da Carroceria:</label>
+            <input type="text" id="part-body-model">
+            <br>
+            <label for="part-category">Categoria:</label>
+            <select id="part-category">
+                <option value="Mecânica">Mecânica</option>
+                <option value="Elétrica">Elétrica</option>
+                <option value="Lataria">Lataria</option>
+                <option value="Parafusos">Parafusos</option>
+                <option value="Pintura">Pintura</option>
+                <option value="Borracharia">Borracharia</option>
+                <option value="Limpeza">Limpeza</option>
+                <option value="Predial">Predial</option>
+                <option value="Recon. Mecânica">Recon. Mecânica</option>
+                <option value="Recon. Lataria">Recon. Lataria</option>
+                <option value="Recon. Elétrica">Recon. Elétrica</option>
+            </select>
+            <br>
+            <label for="part-manufacturer">Marca:</label>
+            <select id="part-manufacturer">
+                <option value="Volkswagen">Volkswagen</option>
+                <option value="Mercedes-Bens">Mercedes-Bens</option>
+                <option value="Volvo">Volvo</option>
+            </select>
+            <br>
+            <div id="other-manufacturer-container" style="display: none;">
+                <label for="other-manufacturer">Especifique a Marca:</label>
+                <input type="text" id="other-manufacturer">
+            </div>
+            <br>
+            <label for="part-condition">Condição:</label>
+            <select id="part-condition">
+                <option value="Nova">Nova</option>
+                <option value="Recondicionada">Recondicionada</option>
+            </select>
+            <br>
+            <button type="submit">Adicionar Peça</button>
+        </form>
+    </div>
 
-    <footer>
-        <p>&copy; 2025 Gidion. Transportando valores humanos.
-        Impulsionando nossa cidade.</p>
-    </footer>
-    <script src="script.js"></script>
+    <footer>
+        <p>&copy; 2025 Gidion. Transportando valores humanos.
+        Impulsionando nossa cidade.</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>
