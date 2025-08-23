@@ -1,11 +1,11 @@
-// Este é o nosso "banco de dados" de peças
-    const parts = [
+// --- CARREGAR PEÇAS DO LOCALSTORAGE NO INÍCIO ---
+let parts = JSON.parse(localStorage.getItem('pecas')) || [
     {
         photo: "https://http2.mlstatic.com/D_NQ_NP_993277-MLB50099493447_052022-O-tensor-correia-alternador-vw-17260-18310-18320-2z0145299b.webp",
         name: "Esticador de Correia Motor 17260 OT",
         description: "Esticador tensor de correia alternador para motor Volkswagen 17260 OT (original) Referência: 2TB-903150.",
         code: "19114",
-        id: 1, // Adicionado ID para o carrinho
+        id: 1,
         year: "2010 - 2013",
         busModel: "Volkswagen 17-260 EOT Low",
         bodyModel: "Buscar Urbanuss Plus",
@@ -18,7 +18,7 @@
         name: "Bomba Direção Hidráulica 17230 OD",
         description: "Bomba de direção hidráulica Volkswagen 17230 OD Referência: 61471017061 Bosch.",
         code: "19846",
-        id: 2, // Adicionado ID para o carrinho
+        id: 2,
         year: "2013 - (...)",
         busModel: "Volkswagen 17-230 OD, 22-260 S, 9-160 OD, 9-150 OD, 15-190 OD, 9-160 OD",
         bodyModel: "Todos",
@@ -26,13 +26,12 @@
         manufacturer: "Bosch",
         condition: "Nova"
     },
-
     {
         photo: "https://images.tcdn.com.br/img/img_prod/955400/valvula_termostatica_vw_man_d08_4_e_6_cil_euro_v_07w121300a_23677_1_6935fd1bc27cc52baea1ef0e62fd38dd.jpg",
         name: "Valvula Termostática 17-230 OD",
         description: "Valvula termostática Volkswagen 17-230 OD Referência: 07W121300A.",
         code: "19683",
-        id: 3, // Adicionado ID para o carrinho
+        id: 3,
         year: "2013 - (...)",
         busModel: "Volkswagen 17-230 OD, 22-260 S, 9-160 OD, 9-150 OD, 15-190 OD, 9-160 OD",
         bodyModel: "Todos",
@@ -45,7 +44,7 @@
         name: "Bomba D' Água 17-230 OD",
         description: "Bomba d'água Volkswagen 17-230 OD Referência: 07W121011A.",
         code: "19683",
-        id: 4, // Adicionado ID para o carrinho
+        id: 4,
         year: "2013 - (...)",
         busModel: "Volkswagen 17-230 OD, 22-260 S, 9-160 OD, 9-150 OD, 15-190 OD, 9-160 OD",
         bodyModel: "Todos",
@@ -58,7 +57,7 @@
         name: "Servo Shift 17-230 OD",
         description: "Servo shift Volkswagen 17-230 OD Referência: 2T2711486.",
         code: "19327",
-        id: 5, // Adicionado ID para o carrinho
+        id: 5,
         year: "2013 - (...)",
         busModel: "Volkswagen 17-230 OD, 22-260 S, 9-160 OD, 9-150 OD, 15-190 OD, 9-160 OD",
         bodyModel: "Todos",
@@ -71,7 +70,7 @@
         name: "Bateria Recondicionada 150AH",
         description: "Bateria recondicionada 150AH 12V.",
         code: "60256",
-        id: 6, // Adicionado ID para o carrinho
+        id: 6,
         year: "Todos",
         busModel: "Todos",
         bodyModel: "Todos",
@@ -84,7 +83,7 @@
         name: "Bateria Recondicionada 110AH",
         description: "Bateria recondicionada 110AH 12V.",
         code: "62057",
-        id: 7, // Adicionado ID para o carrinho
+        id: 7,
         year: "Todos",
         busModel: "",
         bodyModel: "Todos",
@@ -97,7 +96,7 @@
         name: "Câmara de ar 1000X20",
         description: "Câmara de ar 1000X20 Pirelli.",
         code: "34042",
-        id: 3, // Adicionado ID para o carrinho
+        id: 8,
         year: "Todos",
         busModel: "Todos",
         bodyModel: "Todos",
@@ -110,7 +109,7 @@
         name: "Valvula Bico de Ar",
         description: "Nucleo da valvula do bico de ar do pneu.",
         code: "34132",
-        id: 4, // Adicionado ID para o carrinho
+        id: 9,
         year: "Todos",
         busModel: "Todos",
         bodyModel: "Todos",
@@ -119,11 +118,11 @@
         condition: "Nova"
     },
     {
-        photo: "https://http2.mlstatic.com/D_NQ_NP_881842-MLB31830362659_082019-O-tampa-valvula-ventil-bico-pneu-carro-moto-plastico-100-un.webp",
+        photo: "https://http2.mlstatic.com/D_881842-MLB31830362659_082019-O-tampa-valvula-ventil-bico-pneu-carro-moto-plastico-100-un.webp",
         name: "Tampa ventil",
         description: "Tampa ventil polietileno.",
         code: "34133",
-        id: 5, // Adicionado ID para o carrinho
+        id: 10,
         year: "Todos",
         busModel: "Todos",
         bodyModel: "Todos",
@@ -136,7 +135,7 @@
         name: "Massa de calafetar",
         description: "Massa de calafetar preta balde c/ 20Kg.",
         code: "11199",
-        id: 6, // Adicionado ID para o carrinho
+        id: 11,
         year: "Todos",
         busModel: "Todos",
         bodyModel: "Todos",
@@ -149,7 +148,7 @@
         name: "Nivelador para retoque",
         description: "Nivelador para retoque de 900ml.",
         code: "11152",
-        id: 8, // Adicionado ID para o carrinho
+        id: 12,
         year: "Todos",
         busModel: "Todos",
         bodyModel: "Todos",
@@ -162,7 +161,7 @@
         name: "Pega mão Lateral Injetado Recondicionado",
         description: "Pega mão lateral injetado amarelo e cinza banco passageiro recondicionado.",
         code: "60984",
-        id: 9, // Adicionado ID para o carrinho
+        id: 13,
         year: "2013 - 2015",
         busModel: "Todos",
         bodyModel: "Neobus mega",
@@ -175,7 +174,7 @@
         name: "Encosto banco motorista baixo recondicionado",
         description: "Encosto banco motorista baixo Urbano e Rodoviário recondicionado.",
         code: "60934",
-        id: 10, // Adicionado ID para o carrinho
+        id: 14,
         year: "2013 - 2017",
         busModel: "Todos",
         bodyModel: "Neobus mega",
@@ -188,7 +187,7 @@
         name: "assento banco motorista recondicionado",
         description: "assento banco motorista Urbano e Rodoviário recondicionado.",
         code: "60934",
-        id: 11, // Adicionado ID para o carrinho
+        id: 15,
         year: "2013 - 2017",
         busModel: "Todos",
         bodyModel: "Neobus mega",
@@ -201,7 +200,7 @@
         name: "Servo Embreagem Recondicionado 17230 EOD MWM",
         description: "Servo embreagem recondicionado para motor MWM 17230 EOD.",
         code: "60297",
-        id: 12, // Adicionado ID para o carrinho
+        id: 16,
         year: "(...) - 2013",
         busModel: "Volkswagen 17-230 EOD, 17-260 EOT, 17-280 EOT",
         bodyModel: "Todos",
@@ -214,7 +213,7 @@
         name: "Servo Embreagem Recondicionado 17230 OD MAN",
         description: "Servo embreagem recondicionado para motor MAN 17230 OD.",
         code: "60298",
-        id: 13, // Adicionado ID para o carrinho
+        id: 17,
         year: "(...) - 2013",
         busModel: "Volkswagen 17-230 OD",
         bodyModel: "Todos",
@@ -227,7 +226,7 @@
         name: "Relogio Manometro Ar Mercedes Benz",
         description: "Relogio manometro ar Mercedes Benz ",
         code: "60334",
-        id: 14, // Adicionado ID para o carrinho
+        id: 18,
         year: "2009 - 2012",
         busModel: "Mercedes Benz OF-1721, OF-1620",
         bodyModel: "Todos",
@@ -240,7 +239,7 @@
         name: "Motor Desembaçador pararisa 24V simples",
         description: "Motor simples desembaçador para parabrisa 24V",
         code: "12794",
-        id: 14, // Adicionado ID para o carrinho
+        id: 19,
         year: "2011 - 2016",
         busModel: "Todos",
         bodyModel: "Neobus Mega, Neobus New Mega, Neobus Thunder+.",
@@ -253,7 +252,7 @@
         name: "Lampada H1 24V 70W",
         description: "Lampada de farol H1 24V 70W .",
         code: "12876",
-        id: 15, // Adicionado ID para o carrinho
+        id: 20,
         year: "2011 - 2017",
         busModel: "Todos",
         bodyModel: "Neobus Mega, Neobus New Mega, Neobus Thunder+.",
@@ -262,11 +261,11 @@
         condition: "Nova"
     },
     {
-        photo: "https://http2.mlstatic.com/D_NQ_NP_867527-MLB53926898556_022023-O.webp",
+        photo: "https://http2.mlstatic.com/D_867527-MLB53926898556_022023-O.webp",
         name: "Chave seta / limpador 24V mercedes",
         description: "Chave seta e limpador de parabrisa 24V para Mercedes Benz.",
         code: "13227",
-        id: 16, // Adicionado ID para o carrinho
+        id: 21,
         year: "2018 - (...)",
         busModel: "Mercedes Benz OF-1519, OF-1723, OF-1721.",
         bodyModel: "Todos",
@@ -274,7 +273,8 @@
         manufacturer: "Marilia",
         condition: "Nova"
     },
-]
+];
+
 const catalogContainer = document.querySelector(".catalog-container");
 const addPartFormContainer = document.querySelector(".add-part-form-container");
 const loginFormContainer = document.querySelector(".login-form-container");
@@ -320,23 +320,17 @@ const accessCredentials = [
 function showNotification(message, isError = false) {
     const notification = document.getElementById('notification-message');
     notification.textContent = message;
-    
-    // Remove qualquer classe de estilo anterior
-    notification.classList.remove('success', 'error', 'show');
 
-    // Adiciona a classe de estilo apropriada
+    notification.classList.remove('error');
+
     if (isError) {
         notification.classList.add('error');
-    } else {
-        notification.classList.add('success');
     }
-    
-    // Exibe a notificação
-    notification.classList.add('show');
-    
-    // Oculta a notificação após 3 segundos
+
+    notification.style.display = 'block';
+
     setTimeout(() => {
-        notification.classList.remove('show');
+        notification.style.display = 'none';
     }, 3000);
 }
 
@@ -358,11 +352,11 @@ function displayParts(partsToDisplay) {
         catalogContainer.style.display = "flex";
         partsToDisplay.forEach((part) => {
             const partCardHTML = `<div class="part-card" data-code="${part.code}">
-                    <div class="part-image-container">
-                        <img src="${part.photo}" alt="Foto da peça">
+                        <div class="part-image-container">
+                            <img src="${part.photo}" alt="Foto da peça">
+                        </div>
+                        <h2>${part.name}</h2>
                     </div>
-                    <h2>${part.name}</h2>
-                </div>
             `;
             catalogContainer.innerHTML += partCardHTML;
         });
@@ -410,6 +404,7 @@ loginForm.addEventListener("submit", (event) => {
     }
 });
 
+// --- ALTERAÇÃO AQUI: SALVANDO A NOVA PEÇA NO LOCALSTORAGE ---
 addPartForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -429,9 +424,20 @@ addPartForm.addEventListener("submit", (event) => {
         category: document.getElementById("part-category").value,
         manufacturer: manufacturer,
         condition: document.getElementById("part-condition").value,
+        // Gera um ID único para a nova peça
+        id: parts.length > 0 ? Math.max(...parts.map(p => p.id)) + 1 : 1
     };
 
+    // Adiciona a nova peça ao array em memória
     parts.push(newPart);
+
+    // Salva o array completo de volta no localStorage
+    localStorage.setItem('pecas', JSON.stringify(parts));
+
+    // Exibe a notificação de sucesso
+    showNotification("Peça cadastrada com sucesso!");
+
+    // Volta para o catálogo atualizado
     showCatalog();
     addPartForm.reset();
 });
@@ -534,7 +540,6 @@ orderForm.addEventListener('submit', async (e) => {
     const userMatricula = document.getElementById('user-matricula').value;
 
     if (cart.length === 0) {
-        // --- ALTERAÇÃO AQUI: Usando a nova função showNotification ---
         showNotification("Seu pedido está vazio. Adicione peças para continuar.", true);
         return;
     }
@@ -556,9 +561,8 @@ orderForm.addEventListener('submit', async (e) => {
             body: JSON.stringify(data),
         });
 
-        // --- ALTERAÇÃO AQUI: Usando a nova função showNotification para a mensagem de sucesso ---
         showNotification("Pedido finalizado. Retirar no Almoxarifado.", false);
-        
+
     } catch (error) {
         console.error('Erro ao enviar o pedido:', error);
         showNotification("Ocorreu um erro ao enviar o pedido. Tente novamente.", true);
@@ -578,16 +582,16 @@ function showPartDetails(event) {
     if (selectedPart) {
         catalogContainer.style.display = "block";
         catalogContainer.innerHTML = `<div class="detailed-part">
-                <button onclick="showCatalog()">Voltar para o catálogo</button>
-                <img src="${selectedPart.photo}" alt="Foto da peça">
-                <h2>${selectedPart.name}</h2>
-                <p><strong>Descrição:</strong> ${selectedPart.description}</p>
-                <p><strong>Cód:</strong> ${selectedPart.code}</p>
-                <p><strong>Ano:</strong> ${selectedPart.year}</p>
-                <p><strong>Ônibus:</strong> ${selectedPart.busModel}</p>
-                <p><strong>Carroceria:</strong> ${selectedPart.bodyModel}</p>
-                <button class="add-to-cart-btn" data-id="${selectedPart.id}">Adicionar ao Pedido</button>
-            </div>
+                    <button onclick="showCatalog()">Voltar para o catálogo</button>
+                    <img src="${selectedPart.photo}" alt="Foto da peça">
+                    <h2>${selectedPart.name}</h2>
+                    <p><strong>Descrição:</strong> ${selectedPart.description}</p>
+                    <p><strong>Cód:</strong> ${selectedPart.code}</p>
+                    <p><strong>Ano:</strong> ${selectedPart.year}</p>
+                    <p><strong>Ônibus:</strong> ${selectedPart.busModel}</p>
+                    <p><strong>Carroceria:</strong> ${selectedPart.bodyModel}</p>
+                    <button class="add-to-cart-btn" data-id="${selectedPart.id}">Adicionar ao Pedido</button>
+                </div>
         `;
         document.querySelector(".add-to-cart-btn").addEventListener('click', (e) => {
             e.stopPropagation();
@@ -601,7 +605,7 @@ document.querySelector(".search-bar input").addEventListener("input", searchPart
 
 function searchParts() {
     const searchTerm = document.querySelector(".search-bar input").value.toLowerCase();
-    
+
     const filteredParts = parts.filter(part => {
         return (
             part.name.toLowerCase().includes(searchTerm) ||
@@ -611,7 +615,7 @@ function searchParts() {
             part.bodyModel.toLowerCase().includes(searchTerm)
         );
     });
-    
+
     displayParts(filteredParts);
 }
 
@@ -622,7 +626,7 @@ function filterByConditionAndCategory(condition, category) {
             part.category.toLowerCase() === category.toLowerCase()
         );
     });
-    
+
     displayParts(filteredParts);
 }
 
@@ -630,7 +634,7 @@ function filterByManufacturer(manufacturer) {
     const filteredParts = parts.filter(part => {
         return part.manufacturer.toLowerCase() === manufacturer.toLowerCase();
     });
-    
+
     displayParts(filteredParts);
 }
 
@@ -668,4 +672,6 @@ manufacturerSelect.addEventListener("change", (event) => {
     }
 });
 
+// A função showCatalog() agora é chamada no final do script para carregar as peças
+// salvas no localStorage assim que a página é carregada
 showCatalog();
