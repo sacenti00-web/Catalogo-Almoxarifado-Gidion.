@@ -776,3 +776,48 @@ footer {
 .notification-container.error {
     background-color: #f44336; /* Vermelho para avisos de erro */
 }
+
+@media (max-width: 768px) {
+  /* Estilos do cabeçalho */
+  .header-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Estilos da barra de pesquisa */
+  .search-bar {
+    width: 90%;
+    margin: 10px 0;
+  }
+
+  /* Esconde alguns elementos na barra de navegação para economizar espaço */
+  .main-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .main-nav ul li a {
+    font-size: 14px;
+    padding: 8px;
+  }
+  
+  /* Ajusta os cards de produtos para uma coluna */
+  .catalog-container {
+    display: flex; /* Garante que o display seja flexível */
+    flex-direction: column;
+    gap: 15px; /* Espaço entre os cards */
+  }
+
+  .part-card {
+    width: 90%; /* Deixa os cards mais largos */
+    margin: 0 auto; /* Centraliza os cards */
+  }
+
+  /* Estilos do carrinho lateral */
+  .cart-sidebar {
+    width: 100%; /* Ocupa a largura total da tela */
+    right: 0;
+    top: 0;
+    height: 100vh; /* Ocupa a altura total */
+  }
+}
