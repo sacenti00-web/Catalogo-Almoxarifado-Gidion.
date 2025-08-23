@@ -1,0 +1,778 @@
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* ------------------ NOVOS ESTILOS PARA O CARRINHO ------------------ */
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #ac443c;
+    margin-left: 20px;
+}
+
+.cart-icon:hover {
+    color: #923a31;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #007bff;
+    color: white;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-weight: bold;
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Esconde a barra lateral inicialmente */
+    width: 350px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -4px 0 10px rgba(0,0,0,0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-sidebar.open {
+    right: 0; /* Mostra a barra lateral */
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-header h3 {
+    margin: 0;
+    color: #ac443c;
+}
+
+.close-cart-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+}
+
+.close-cart-btn:hover {
+    color: #555;
+}
+
+.cart-items-list {
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    flex-grow: 1; /* Permite que a lista cresça para ocupar o espaço disponível */
+    overflow-y: auto; /* Adiciona scroll se houver muitos itens */
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.cart-item-info {
+    font-size: 1rem;
+    color: #555;
+}
+
+.cart-item-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.remove-item-btn {
+    background: none;
+    border: none;
+    color: #ff4500;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
+.order-form-container {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+#order-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#order-form input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#submit-order-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#submit-order-btn:hover {
+    background-color: #218838;
+}
+
+/* ------------------ ESTILOS CORRIGIDOS E MELHORADOS ------------------ */
+.catalog-container {
+    display: flex;
+    flex-wrap: wrap; /* Faz com que os itens quebrem para a próxima linha */
+    justify-content: center; /* Centraliza os itens horizontalmente */
+    gap: 20px; /* Adiciona um espaço de 20px entre os cards */
+    padding: 2rem;
+}
+
+.part-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Largura ajustada para exibir 4 cards por linha */
+    width: calc(25% - 20px);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.2s;
+    cursor: pointer;
+    /* Garante que o conteúdo de cada card fique alinhado */
+    display: flex;
+    flex-direction: column;
+}
+
+.part-card:hover {
+    transform: translateY(-5px);
+}
+
+/* NOVO: Contêiner da imagem com altura fixa */
+.part-image-container {
+    width: 100%;
+    height: 200px; /* Altura padrão para todas as imagens */
+    overflow: hidden;
+}
+
+/* NOVO: Faz a imagem preencher o contêiner sem distorcer */
+.part-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Estilos adicionais para layout responsivo */
+@media (max-width: 1200px) {
+    .part-card {
+        width: calc(33.33% - 20px); /* 3 cards por linha em telas médias */
+    }
+}
+
+@media (max-width: 900px) {
+    .part-card {
+        width: calc(50% - 20px); /* 2 cards por linha em telas menores */
+    }
+}
+
+@media (max-width: 600px) {
+    .part-card {
+        width: 100%; /* 1 card por linha em telas de celular */
+    }
+}
+/* ------------------ FIM DOS ESTILOS CORRIGIDOS ------------------ */
+
+
+.part-info {
+    padding: 1rem;
+}
+
+.part-info h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #ac443c;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+}
+
+.header-top {
+    background-color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+}
+
+.Logo img {
+    height: 60px;
+}
+
+.header-title-container {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: #ac443c;
+    margin: 0;
+}
+
+.page-subtitle {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    background-color: #ac443c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #923a31;
+}
+
+.main-nav {
+    background-color: #ac443c;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.main-nav li {
+    margin: 0 15px;
+    position: relative;
+}
+
+.main-nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    position: absolute;
+    background-color: #923a31;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    min-width: 150px;
+    display: block;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.main-nav li:hover > a {
+    background-color: #923a31;
+}
+
+.dropdown-menu li {
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #7b2e26;
+}
+
+.dropdown-menu li a {
+    padding: 10px 15px;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-toggle::after {
+    content: '\25BE';
+    margin-left: 5px;
+}
+
+.detailed-part {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.detailed-part button {
+    background-color: #ac443c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.detailed-part button:hover {
+    background-color: #923a31;
+}
+
+.detailed-part img {
+    width: 150px;
+    height: auto;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.detailed-part h2 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #ac443c;
+    margin-bottom: 10px;
+}
+
+.detailed-part p {
+    margin-bottom: 8px;
+}
+
+.detailed-part strong {
+    font-weight: bold;
+}
+
+.detailed-part::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.add-part-form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+#add-part-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#add-part-form input,
+#add-part-form textarea,
+#add-part-form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#add-part-form button {
+    background-color: #ac443c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+#add-part-form button:hover {
+    background-color: #923a31;
+}
+
+.login-form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+#login-form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#login-form button {
+    background-color: #ac443c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* --- ESTILOS PARA A NOVA NOTIFICAÇÃO --- */
+.notification {
+    position: fixed; /* Posição fixa na tela */
+    top: 100px; /* Posiciona 100px abaixo do topo (ajustar conforme a altura do seu menu) */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajuste final para centralização perfeita */
+    background-color: #28a745; /* Cor de fundo verde */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    text-align: center; /* Centraliza o texto */
+    font-size: 1.1rem;
+    min-width: 300px;
+}
+
+.notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- ESTILOS PARA O CONTADOR DE QUANTIDADE NO CARRINHO --- */
+.item-quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-quantity-control button {
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 25px;
+    height: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1; /* Alinha o texto do botão verticalmente */
+    text-align: center;
+    padding: 0;
+}
+
+.item-quantity-control button:hover {
+    background-color: #ddd;
+}
+
+.item-quantity {
+    width: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Estilos para o botão de remoção no carrinho */
+.remove-item-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    padding: 0;
+    line-height: 1;
+}
+
+.remove-item-btn:hover {
+    color: #e60000;
+}
+
+/* Garante que o item do carrinho fique alinhado */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.catalog-container.no-results {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* Ajuste a altura para centralizar verticalmente na tela */
+    text-align: center;
+}
+
+/* ------------------ NOVOS ESTILOS PARA O CARRINHO ------------------ */
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+    font-size: 1.8rem;
+    color: #ac443c;
+    margin-left: 20px;
+}
+
+.cart-icon:hover {
+    color: #923a31;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #007bff;
+    color: white;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-weight: bold;
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Esconde a barra lateral inicialmente */
+    width: 350px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -4px 0 10px rgba(0,0,0,0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-sidebar.open {
+    right: 0; /* Mostra a barra lateral */
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-header h3 {
+    margin: 0;
+    color: #ac443c;
+}
+
+.close-cart-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #999;
+}
+
+.close-cart-btn:hover {
+    color: #555;
+}
+
+.cart-items-list {
+    list-style: none;
+    padding: 15px;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.cart-item-info {
+    font-size: 1rem;
+    color: #555;
+}
+
+.cart-item-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.remove-item-btn {
+    background: none;
+    border: none;
+    color: #ff4500;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+
+.order-form-container {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+#order-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#order-form input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#submit-order-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px;
+    width: 100%;
+}
+
+#submit-order-btn:hover {
+    background-color: #218838;
+}
+
+/* Estilos para o botão de remoção no carrinho */
+.remove-item-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    padding: 0;
+    line-height: 1;
+}
+
+.remove-item-btn:hover {
+    color: #e60000;
+}
+
+/* Centraliza a mensagem de "Nenhuma peça encontrada" */
+.no-parts-message {
+  text-align: center;
+  width: 100%;
+}
+
+/* Estilo para a notificação */
+.notification-container {
+  display: none; /* Esconde a notificação por padrão */
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  padding: 15px 20px;
+  background-color: #4caf50; /* Cor verde para a notificação de sucesso */
+  color: white;
+  text-align: center;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Classe para mostrar a notificação */
+.notification-container.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Estilo para a notificação de erro (pedido vazio) */
+.notification-container.error {
+    background-color: #f44336; /* Vermelho para avisos de erro */
+}
