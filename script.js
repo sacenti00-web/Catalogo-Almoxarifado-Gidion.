@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const urlAppsScript = 'https://script.google.com/macros/s/AKfycbzZn8n1y1gs0srbPUpRtPvs7PPQ8F36yJ9guzArcm8xlA-qrt-Ji6DsENlbTkh9bAny/exec';
+    const urlAppsScript = 'https://script.google.com/macros/s/AKfycbxr1_2Gb1I-yFCJo9_U5eAU1rPIbX5KCid0-DxQRtVmy4-F-OuGHna6cUlGrxwdxa7q/exec';
     
     // Constrói os dados do pedido no formato que o Apps Script espera
     const formData = new FormData();
