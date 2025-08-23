@@ -126,7 +126,7 @@ function showPartDetails(part) {
     catalogContainer.style.flexDirection = 'column'; // Mudar para layout de coluna
     
     const detailsHtml = `
-        <button id="back-to-catalog" class="back-btn"><i class="fas fa-arrow-left"></i> Voltar</button>
+        <button id="back-to-catalog" class="back-btn styled-button"><i class="fas fa-arrow-left"></i> Voltar</button>
         <div class="part-details-card">
             <div class="part-details-image">
                 <img src="${part.photo || 'https://via.placeholder.com/400'}" alt="${part.name}">
@@ -141,7 +141,7 @@ function showPartDetails(part) {
                 <p><strong>Modelo da Carroceria:</strong> ${part.bodyModel || 'N/A'}</p>
                 <p><strong>Categoria:</strong> ${part.category}</p>
                 <p><strong>Condição:</strong> ${part.condition}</p>
-                <button class="add-to-cart-btn-details" 
+                <button class="add-to-cart-btn-details styled-button" 
                         data-name="${part.name}" 
                         data-code="${part.code}">Adicionar ao Pedido</button>
             </div>

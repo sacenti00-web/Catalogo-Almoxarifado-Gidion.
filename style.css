@@ -878,3 +878,44 @@ footer {
     padding: 12px;
   }
 }
+
+.styled-button {
+    background-color: #8B0000; /* Vermelho escuro/bordô - ajuste se necessário */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.styled-button:hover {
+    background-color: #A52A2A; /* Tom um pouco mais claro ao passar o mouse */
+}
+
+.back-btn {
+    background-color: #8B0000;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Para alinhar com outros elementos, se necessário */
+}
+
+.back-btn:hover {
+    background-color: #A52A2A;
+}
+
+.back-btn i {
+    margin-right: 5px; /* Espaço entre o ícone e o texto */
+}
+
+.part-details-info .styled-button {
+    margin-top: 15px; /* Mais espaço acima do botão de adicionar no detalhe */
+}
