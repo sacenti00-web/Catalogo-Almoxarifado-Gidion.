@@ -253,24 +253,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     orderForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+    event.preventDefault();
 
-        if (Object.keys(cart).length === 0) {
-            showNotification("O seu pedido está vazio. Adicione itens antes de enviar.", true);
-            return;
+    if (Object.keys(cart).length === 0) {
+        showNotification("O seu pedido está vazio. Adicione itens antes de enviar.", true);
+        return;
+    }
+
+    const urlAppsScript = 'https://script.google.com/macros/s/AKfycbzZn8n1y1gs0srbPUpRtPvs7PPQ8F36yJ9guzArcm8xlA-qrt-Ji6DsENlbTkh9bAny/exec';
+    
+    // Constrói os dados do pedido no formato que o Apps Script espera
+    const formData = new FormData();
+    formData.append('carNumber', document.getElementById('car-number').value);
+    formData.append('osNumber', document.getElementById('os-number').value);
+    formData.append('userMatricula', document.getElementById('user-matricula').value);
+    formData.append('pedido', JSON.stringify(Object.values(cart))); // Converte o carrinho para uma string JSON
+    
+    try {
+        // Envia o pedido para o Apps Script
+        const response = await fetch(urlAppsScript, {
+            method: 'POST',
+            body: formData,
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            showNotification("Pedido enviado com sucesso!");
+            
+            // Salva o pedido no Firestore para manter um registro local
+            const orderData = {
+                carro: document.getElementById('car-number').value,
+                os: document.getElementById('os-number').value,
+                matricula: document.getElementById('user-matricula').value,
+                itens: Object.values(cart),
+                timestamp: new Date()
+            };
+            await addDoc(collection(db, "pedidos"), orderData);
+
+            cart = {};
+            renderCartItems();
+            orderForm.reset();
+            cartSidebar.classList.remove('open');
+        } else {
+            throw new Error(result.message || 'Erro desconhecido');
         }
-
-        const carNumber = document.getElementById('car-number').value;
-        const osNumber = document.getElementById('os-number').value;
-        const userMatricula = document.getElementById('user-matricula').value;
-
-        const orderData = {
-            carro: carNumber,
-            os: osNumber,
-            matricula: userMatricula,
-            itens: Object.values(cart),
-            timestamp: new Date()
-        };
+    } catch (e) {
+        console.error("Erro ao enviar pedido para o Apps Script: ", e);
+        showNotification(`Erro ao enviar pedido: ${e.message}`, true);
+    }
 
         try {
             await addDoc(collection(db, "pedidos"), orderData);
