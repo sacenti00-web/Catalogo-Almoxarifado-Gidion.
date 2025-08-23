@@ -170,7 +170,7 @@ let parts = JSON.parse(localStorage.getItem('pecas')) || [
         condition: "recondicionada"
     },
     {
-        photo: "https://lh3.googleusercontent.com/proxy/b75EZOdVryPRYGrV8f9B3AgnIgaIIaM479c3k-Vtttuk_aMZsbnzeQOT-SWOi4ci3bN4FgiICoO87DUINNxPnD2niV9h58GnP_tP8VvPjVCUT1OdgA",
+        photo: "https://cdn.awsli.com.br/200x200/1376/1376230/produto/347820993/whatsapp-image-2025-04-15-at-09-42-15--1--nao83rrrwo.jpeg",
         name: "Encosto banco motorista baixo recondicionado",
         description: "Encosto banco motorista baixo Urbano e Rodoviário recondicionado.",
         code: "60934",
