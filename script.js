@@ -439,9 +439,10 @@ searchInput.addEventListener('input', function() {
 
     // Filtra as peças que já estão na memória (allPartsData)
     const filtered = allPartsData.filter(part => 
-        (part.name && part.name.toLowerCase().includes(termo)) || 
-        (part.code && part.code.toLowerCase().includes(termo))
-    );
+         (part.name && part.name.toLowerCase().includes(termo)) || 
+         (part.code && part.code.toLowerCase().includes(termo)) ||
+         (part.description && part.description.toLowerCase().includes(termo))
+);
 
     // Cria e exibe os itens de sugestão
     filtered.forEach(part => {
@@ -505,9 +506,10 @@ function searchAndRenderParts() {
     
     // Filtra os dados em memória e renderiza os resultados
     const filtered = allPartsData.filter(part => 
-        (part.name && part.name.toLowerCase().includes(termo)) || 
-        (part.code && part.code.toLowerCase().includes(termo))
-    );
+         (part.name && part.name.toLowerCase().includes(termo)) || 
+         (part.code && part.code.toLowerCase().includes(termo)) ||
+         (part.description && part.description.toLowerCase().includes(termo))
+);
     renderParts(filtered);
 }
 
