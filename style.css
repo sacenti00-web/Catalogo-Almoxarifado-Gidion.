@@ -919,3 +919,43 @@ footer {
 .part-details-info .styled-button {
     margin-top: 15px; /* Mais espaço acima do botão de adicionar no detalhe */
 }
+
+/* Container que garante que a lista de sugestões fique posicionada corretamente */
+.search-bar {
+    position: relative;
+    display: inline-block;
+}
+
+/* Estilo para a lista de sugestões */
+#autocomplete-list {
+    position: absolute;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #ddd;
+    border-top: none;
+    background-color: #fff;
+    max-height: 200px; /* Limita a altura para evitar que a lista fique muito grande */
+    overflow-y: auto; /* Adiciona scroll se a lista for muito longa */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+}
+
+.autocomplete-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para destacar o texto que corresponde à busca */
+.autocomplete-item strong {
+    color: #007BFF;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}

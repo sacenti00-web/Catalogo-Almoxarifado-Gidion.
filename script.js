@@ -412,30 +412,104 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Lógica da barra de pesquisa
-    const searchInput = document.getElementById('search-input');
-    const searchButton = document.getElementById('search-button');
+// ------------------- LÓGICA DO AUTOCOMPLETAR E PESQUISA -------------------
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
+const autocompleteList = document.getElementById('autocomplete-list');
 
-    function filterParts(searchText) {
-        const searchTerm = searchText.toLowerCase().trim();
-        const filtered = allPartsData.filter(part => 
-            part.name.toLowerCase().includes(searchTerm) || 
-            (part.code && part.code.toLowerCase().includes(searchTerm))
-        );
-        renderParts(filtered);
+// Função para fechar a lista de sugestões
+function closeAllLists(elmnt) {
+    if (autocompleteList) {
+        // Limpa todas as sugestões que existem
+        autocompleteList.innerHTML = '';
+    }
+}
+
+// Evento para o autocompletar
+searchInput.addEventListener('input', function() {
+    const termo = this.value.toLowerCase().trim();
+    
+    // Limpa a lista anterior
+    closeAllLists();
+
+    // Não mostra sugestões se o termo for muito curto ou vazio
+    if (termo.length < 2) {
+        return false;
     }
 
-    if (searchButton && searchInput) {
-        searchButton.addEventListener('click', () => {
-            filterParts(searchInput.value);
+    // Filtra as peças que já estão na memória (allPartsData)
+    const filtered = allPartsData.filter(part => 
+        (part.name && part.name.toLowerCase().includes(termo)) || 
+        (part.code && part.code.toLowerCase().includes(termo))
+    );
+
+    // Cria e exibe os itens de sugestão
+    filtered.forEach(part => {
+        const item = document.createElement('div');
+        item.className = 'autocomplete-item';
+
+        // Destaca a parte da string que corresponde à busca
+        const nameText = part.name;
+        const codeText = part.code ? part.code : '';
+        
+        if (nameText.toLowerCase().includes(termo)) {
+            const index = nameText.toLowerCase().indexOf(termo);
+            const pre = nameText.substr(0, index);
+            const match = nameText.substr(index, termo.length);
+            const post = nameText.substr(index + termo.length);
+            item.innerHTML = `${pre}<strong>${match}</strong>${post}`;
+        } else if (codeText.toLowerCase().includes(termo)) {
+            const index = codeText.toLowerCase().indexOf(termo);
+            const pre = codeText.substr(0, index);
+            const match = codeText.substr(index, termo.length);
+            const post = codeText.substr(index + termo.length);
+            item.innerHTML = `<strong>${pre}${match}${post}</strong> - ${part.name}`;
+        } else {
+            item.innerHTML = part.name;
+        }
+        
+        // Adiciona um evento de clique para preencher a barra de pesquisa
+        item.addEventListener('click', function() {
+            searchInput.value = part.name;
+            closeAllLists();
+            renderParts([part]); // Renderiza apenas a peça selecionada
         });
 
-        searchInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                filterParts(searchInput.value);
-            }
-        });
+        autocompleteList.appendChild(item);
+    });
+});
+
+// Fecha as sugestões quando o usuário clica fora da barra de pesquisa
+document.addEventListener("click", function (e) {
+    if (e.target !== searchInput) {
+        closeAllLists(e.target);
     }
+});
+
+// Evento de clique no botão de busca e Enter para filtrar o catálogo principal
+if (searchButton && searchInput) {
+    searchButton.addEventListener('click', () => {
+        searchAndRenderParts();
+    });
+
+    searchInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            searchAndRenderParts();
+        }
+    });
+}
+
+function searchAndRenderParts() {
+    const termo = searchInput.value.toLowerCase().trim();
+    closeAllLists();
+    
+    // Filtra os dados em memória e renderiza os resultados
+    const filtered = allPartsData.filter(part => 
+        (part.name && part.name.toLowerCase().includes(termo)) || 
+        (part.code && part.code.toLowerCase().includes(termo))
+    );
+    renderParts(filtered);
+}
 
     // Lógica para o campo 'Outra' marca no formulário
     const manufacturerSelect = document.getElementById('part-manufacturer');
